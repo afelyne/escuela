@@ -1,31 +1,32 @@
-<!-- <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header> -->
-
 <ion-content padding>
-  <div class="contenedor"> 
+  <div class="contenedor">
     <ion-col class="centrado">
-      
+
+      <form (ngSubmit)="onSubmit()" [formGroup]="signupForm">
       <ion-list>
+
           <ion-item>
             <ion-label floating>Usuario</ion-label>
-            <ion-input type="text"></ion-input>
+            <ion-input type="text" [(ngModel)]="login.usr" name="usr" formControlName="usr"></ion-input>
           </ion-item>
-        
+
           <ion-item>
             <ion-label floating>Password</ion-label>
-            <ion-input type="password"></ion-input>
-          </ion-item>         
-      </ion-list>  
+            <ion-input type="password" [(ngModel)]="login.pword" name="pword" formControlName="pword"></ion-input>
+		  </ion-item>
 
-      <div padding>
-        <button ion-button block (click)="goPagina3()">Sign In</button>
-      </div>
+		<ion-item *ngIf="signupForm.controls.usr.hasError('required') && signupForm.controls.usr.touched">
+			<p>El campo Usuario es requerido</p>
+		</ion-item>
+		<ion-item *ngIf="signupForm.controls.pword.hasError('required') && signupForm.controls.pword.touched">
+			<p>El campo Contraseña es requerido</p>
+		</ion-item>
+        </ion-list>
+
+        <div padding>
+          <button ion-button block>Sign In</button>
+        </div>
+      </form>
     </ion-col>
   </div>
 
