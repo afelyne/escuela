@@ -1,3 +1,33 @@
 son {
+	.calendar-header {
+		display: flex;
+		justify-content: space-between;
+		margin: 15px 0;
 
+		ion-icon {
+			font-size: 3rem;
+		}
+
+		h1 {
+			margin: 0;
+		}
+	}
+
+	// .monthview-datetable td.monthview-primary-with-event {
+	// 	padding: 0 !important;
+	// 	background-color: #dcdcdc !important;
+	// }
+
+	// .weekview-allday-content-table .calendar-event {
+	// 	height: 50px !important;
+	// }
+	table {
+		td.monthview-primary-with-event {
+			background-color: color($colors, primary) !important;
+
+			&.monthview-selected {
+				background-color: #009900 !important;
+			}
+		}
+	}
 }

@@ -1,7 +1,17 @@
 <!-- Generated template for the SonComponent component -->
 <div>
+  <div class="calendar-header">
+    <ion-icon name="arrow-back" (click)="previousMonth()"></ion-icon>
+    <h1>{{ viewTitle }}</h1>
+    <ion-icon name="arrow-forward" (click)="nextMonth()"></ion-icon>
+  </div>
+
+  <ng-template #template let-view="view" let-row="row" let-col="col">
+    <div [ngClass]="getCustomClass(view.dates[row*7+col].events)">{{view.dates[row*7+col].label}} </div>
+  </ng-template>
+
   <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" (onCurrentDateChanged)="onCurrentDateChanged($event)"
     (onRangeChanged)="reloadSource(startTime, endTime)" (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)"
-    (onTimeSelected)="onTimeSelected($event)" step="30" [locale]="calendar.locale">
+    (onTimeSelected)="onTimeSelected($event)" step="30" [locale]="calendar.locale" [noEventsLabel]="'Sin actividad'" [lockSwipes]="lockSwipes">
   </calendar>
 </div>

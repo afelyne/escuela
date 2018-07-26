@@ -1,21 +1,20 @@
 page-login {
-	ion-content.content-md {
+	ion-content.content {
 		background: lighten($color: color($colors, e-cool-gray), $amount: 20);
 	}
 
-	.contenedor {
-		display: flex;
-		height: 100%;
-		align-items: center;
-		flex-direction: column;
-		justify-content: center;
-	}
+	// .contenedor {
+	// 	display: flex;
+	// 	align-items: center;
+	// 	flex-direction: column;
+	// 	justify-content: center;
+	// }
 
-	.centrado {
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-	}
+	// .centrado {
+	// 	display: flex;
+	// 	justify-content: center;
+	// 	flex-direction: column;
+	// }
 
 	form.e-primary-background {
 		ion-item,

@@ -32,7 +32,6 @@ export class HomePage {
 
 	ngOnInit() {
 		this.http.get(`${this.apiProvider.API_URL}/user/data`).subscribe((response) => {
-			console.log(response);
 			this.userData = response;
 		});
 	}
