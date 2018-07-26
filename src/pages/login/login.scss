@@ -1,0 +1,35 @@
+page-login {
+	ion-content.content-md {
+		background: lighten($color: color($colors, e-cool-gray), $amount: 20);
+	}
+
+	.contenedor {
+		display: flex;
+		height: 100%;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.centrado {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+	}
+
+	form.e-primary-background {
+		ion-item,
+		input {
+			background: none;
+			color: white;
+		}
+
+		ion-item,
+		ion-item .item-inner {
+			border: none !important;
+		}
+
+		ion-item {
+		}
+	}
+}

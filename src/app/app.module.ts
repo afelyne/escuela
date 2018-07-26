@@ -7,35 +7,33 @@ import { Storage } from '@ionic/storage';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { LoginPage } from '../pages/login/login';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { Pagina3PageModule } from '../pages/pagina3/pagina3.module';
+import { HomePageModule } from '../pages/home/home.module';
 import { ApiProvider } from '../providers/api/api';
 
 export function jwtOptionsFactory(storage) {
 	return {
 		tokenGetter: () => {
 			return storage.get('access_token');
-		}
+		},
+		whitelistedDomains: ['localhost:8100', 'apic5.arceoconde.com'],
+		authScheme: ''
 	};
 }
 
 @NgModule({
-	declarations: [MyApp, HomePage, ListPage],
+	declarations: [MyApp, LoginPage],
 	imports: [
 		BrowserModule,
 		IonicModule.forRoot(MyApp),
-		Pagina3PageModule,
+		HomePageModule,
 		HttpClientModule,
 		IonicStorageModule.forRoot(),
 		JwtModule.forRoot({
-			config: {
-				headerName: 'Jwt-Authorization'
-			},
 			jwtOptionsProvider: {
 				provide: JWT_OPTIONS,
 				useFactory: jwtOptionsFactory,
@@ -44,7 +42,7 @@ export function jwtOptionsFactory(storage) {
 		})
 	],
 	bootstrap: [IonicApp],
-	entryComponents: [MyApp, HomePage, ListPage],
+	entryComponents: [MyApp, LoginPage],
 	providers: [
 		StatusBar,
 		SplashScreen,

@@ -1,60 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, MenuController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
-import { Pagina3Page } from '../pagina3/pagina3';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { ApiProvider } from '../../providers/api/api';
-import { Storage } from '@ionic/storage';
 
-import {
-	FormBuilder,
-	FormGroup,
-	Validators,
-	AbstractControl,
-	FormControl
-} from '@angular/forms';
+/**
+ * Generated class for the Pagina3Page page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
+@IonicPage()
 @Component({
-	selector: 'page-home',
+	selector: 'page-pagina3',
 	templateUrl: 'home.html'
 })
-export class HomePage implements OnInit {
-	login: any;
-	signupForm: FormGroup;
+export class HomePage {
+	userData: any;
+	sonsModel: string;
 
 	constructor(
 		public navCtrl: NavController,
-		public alertCtrl: AlertController,
+		public navParams: NavParams,
 		public menuCtrl: MenuController,
 		private http: HttpClient,
-		private api: ApiProvider,
-		private storage: Storage,
-		private formBuilder: FormBuilder
+		private apiProvider: ApiProvider
 	) {
-		this.menuCtrl.enable(false);
-		this.login = {};
+		this.menuCtrl.enable(true);
+		this.sonsModel = '';
 	}
 
 	ngOnInit() {
-		this.signupForm = this.formBuilder.group({
-			usr: new FormControl('', Validators.compose([Validators.required])),
-			pword: new FormControl(
-				'',
-				Validators.compose([Validators.required])
-			)
+		this.http.get(`${this.apiProvider.API_URL}/user/data`).subscribe((response) => {
+			console.log(response);
+			this.userData = response;
 		});
-	}
-
-	onSubmit() {
-		if (this.signupForm.valid) {
-			this.http
-				.post(`${this.api.API_URL}user/login`, {
-					usr: this.login.usr,
-					pword: this.login.pword
-				})
-				.subscribe(response => {
-					this.storage.set('access_token', response);
-				});
-		}
 	}
 }
