@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiProvider } from '../../providers/api/api';
-import { subMonths, addMonths, addHours, addMinutes, getMonth, getYear, format } from 'date-fns';
+import { subMonths, addMonths, addHours, addMinutes, getMonth, getYear, format, addSeconds } from 'date-fns';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 
 /**
@@ -79,22 +79,25 @@ export class SonComponent implements OnInit, AfterViewInit {
 	buildCalendarData() {
 		this.eventSource = this.sonAssistency.filter((item) => {
 			return item.id_acceso !== 0;
-		});
+		});		
 
 		this.eventSource = this.eventSource.map((item) => {
+			var dateLog = addHours( new Date(item.fecha), 5 );
+			
 			let event = {};
 
 			let startHour = item.h_entrada.split(':');
 			let endHour = item.h_salida.split(':');
 			event['title'] = 'Asistencia';
 			event['startTime'] = addHours(
-				addMinutes(new Date(item.fecha), startHour[1]),
+				addMinutes(
+					addSeconds(dateLog, startHour[2] ), startHour[1]),
 				startHour[0]
 			);
-			event['endTime'] = addHours(addMinutes(new Date(item.fecha), endHour[1]), endHour[0]);
+			event['endTime'] = addHours(addMinutes(  addSeconds(dateLog, endHour[2]), endHour[1] ), endHour[0]);
 
 			return event;
-		});
+		});		
 
 		this.myCalendar.loadEvents();
 	}

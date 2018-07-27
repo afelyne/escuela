@@ -18,7 +18,14 @@
 
 
 <ion-content padding>
-
+	<div class="segment" margin-bottom>
+		<ion-segment [(ngModel)]="selectedSon" color="primary" *ngIf="userData">
+			<ion-segment-button [value]="i + 1" *ngFor="let hijo of userData?.hijos;let i = index" disabled="{{!hijo.valido}}">
+				{{ hijo.nombre }}
+			</ion-segment-button>
+		</ion-segment>
+	</div>
+		
   <div *ngIf="selectedSon; else emptyMessage">
     <ng-container *ngFor="let hijo of userData?.hijos; let i = index">
       <ng-container *ngIf="selectedSon - 1 == i">
@@ -29,17 +36,24 @@
 
   <ng-template #emptyMessage>
     <div class="message">
-      <h1>Selecciona un alumno</h1>
-    </div>
-  </ng-template>
+      <!-- <h1>Selecciona un alumno</h1> -->
+			
+			<h2>Notificaciones</h2>
+			<div class="notificaciones">
+				<ion-card *ngFor="let notification of userData?.notificaciones ">
+					<ion-card-header>
+						{{ notification.titulo}}
+					</ion-card-header>
+					<ion-card-content>
+						<small>{{ notification.fecha }} </small> <br>
+						{{ notification.aviso}}
+					</ion-card-content>
+				</ion-card>
+			</div>
 
+		</div>
 
+	</ng-template>
+
+		
 </ion-content>
-
-<ion-footer>
-  <ion-segment [(ngModel)]="selectedSon" color="primary" *ngIf="userData">
-    <ion-segment-button [value]="i + 1" *ngFor="let hijo of userData?.hijos;let i = index" disabled="{{!hijo.valido}}">
-      {{ hijo.nombre }}
-    </ion-segment-button>
-  </ion-segment>
-</ion-footer>

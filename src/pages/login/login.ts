@@ -5,6 +5,7 @@ import { HomePage } from '../home/home';
 import { HttpClient } from '@angular/common/http';
 import { ApiProvider } from '../../providers/api/api';
 import { Storage } from '@ionic/storage';
+import { LoadingController } from 'ionic-angular';
 
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -17,6 +18,7 @@ export class LoginPage implements OnInit {
 	login: any;
 	signupForm: FormGroup;
 	token: string;
+	showError: any;
 
 	constructor(
 		public navCtrl: NavController,
@@ -26,10 +28,12 @@ export class LoginPage implements OnInit {
 		private api: ApiProvider,
 		private storage: Storage,
 		private formBuilder: FormBuilder,
-		private jwtHelper: JwtHelperService
+		private jwtHelper: JwtHelperService,
+		public loadingCtrl: LoadingController
 	) {
 		this.menuCtrl.enable(false);
 		this.login = {};
+		this.showError = '';
 	}
 
 	ngOnInit() {
@@ -53,15 +57,28 @@ export class LoginPage implements OnInit {
 	}
 
 	onSubmit() {
+		let loading = this.loadingCtrl.create({
+			content: 'Cargando...'
+		});
+		loading.present();
 		if (this.signupForm.valid) {
+			this.showError = '';
 			this.http
 				.post(`${this.api.API_URL}user/login`, {
 					usr: this.login.usr,
 					pword: this.login.pword
 				})
 				.subscribe((response) => {
-					this.storage.set('access_token', response);
-					this.navCtrl.setRoot(HomePage);
+					if( response['valid']) {
+						this.storage.set('access_token', response['response']);
+						setTimeout(() => {
+							loading.dismiss();
+							this.navCtrl.setRoot(HomePage);
+						}, 1000)
+					} else {
+						this.showError = response['response'];
+						loading.dismiss();
+					}
 				});
 		}
 	}

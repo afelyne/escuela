@@ -1,8 +1,9 @@
 <ion-content padding>
-  <div class="contenedor">
-    <ion-col class="centrado">
+  <div class="contenedor" padding-top margin-top>
+    <ion-col class="centrado" padding-top>
+			<img src="assets/imgs/logoe.png" alt="">
 
-      <form (ngSubmit)="onSubmit()" [formGroup]="signupForm" padding class="e-primary-background">
+      <form (ngSubmit)="onSubmit()" [formGroup]="signupForm" padding>
       <ion-list>
 
           <ion-item>
@@ -20,6 +21,9 @@
 		</ion-item>
 		<ion-item *ngIf="signupForm.controls.pword.hasError('required') && signupForm.controls.pword.touched" class="error-message">
 			<p>El campo Contraseña es requerido</p>
+		</ion-item>
+		<ion-item *ngIf="showError !== '' " class="error-message">
+			<p>{{ showError }}</p>
 		</ion-item>
         </ion-list>
 
