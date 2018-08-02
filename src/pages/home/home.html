@@ -38,7 +38,7 @@
     <div class="message">
       <!-- <h1>Selecciona un alumno</h1> -->
 			
-			<h2>Notificaciones</h2>
+			<h2 *ngIf="userData?.notificaciones.length > 0">Notificaciones</h2>
 			<div class="notificaciones">
 				<ion-card *ngFor="let notification of userData?.notificaciones ">
 					<ion-card-header>
@@ -49,6 +49,10 @@
 						{{ notification.aviso}}
 					</ion-card-content>
 				</ion-card>
+				<!--  -->
+				<div *ngIf="userData?.notificaciones.length == 0">
+						<h3 margin-top text-center>Sin notificaciones</h3>
+				</div>
 			</div>
 
 		</div>

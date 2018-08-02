@@ -156,4 +156,8 @@ export class SonComponent implements OnInit, AfterViewInit {
 	getCustomClass(events) {
 		console.log(events);
 	}
+
+	displayData(data) {
+		console.log(data)
+	}
 }

@@ -6,12 +6,39 @@
     <ion-icon name="arrow-forward" (click)="nextMonth()"></ion-icon>
   </div>
 
-  <ng-template #template let-view="view" let-row="row" let-col="col">
+  <!-- <ng-template #template let-view="view" let-row="row" let-col="col">
     <div [ngClass]="getCustomClass(view.dates[row*7+col].events)">{{view.dates[row*7+col].label}} </div>
-  </ng-template>
+	</ng-template> -->
+	
+	<ng-template #templateEvent let-showEventDetail="showEventDetail" let-selectedDate="selectedDate" let-noEventsLabel="noEventsLabel">
+		
+		<div *ngIf="selectedDate.events.length > 0">			
+			<ion-list>
+					<ion-item>
+							Entrada: {{ selectedDate.events[0].startTime | date: 'HH:mm' }}
+					</ion-item>
+					<ion-item>
+							Salida: {{ selectedDate.events[0].endTime === '' ? 'No registrada' : (selectedDate.events[0].endTime | date: 'HH:mm') }}
+					</ion-item>
+				</ion-list>
+		</div>
 
-  <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" (onCurrentDateChanged)="onCurrentDateChanged($event)"
-    (onRangeChanged)="reloadSource(startTime, endTime)" (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)"
-    (onTimeSelected)="onTimeSelected($event)" step="30" [locale]="calendar.locale" [noEventsLabel]="'Sin actividad'" [lockSwipes]="lockSwipes">
+		<div *ngIf="selectedDate.events.length == 0">
+			
+			<ion-list>
+				<ion-item>
+						{{ noEventsLabel }}
+				</ion-item>
+			</ion-list>
+		</div>
+		
+	</ng-template>
+
+	<calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" 
+		[currentDate]="calendar.currentDate" (onCurrentDateChanged)="onCurrentDateChanged($event)"
+    (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)"
+		(onTimeSelected)="onTimeSelected($event)" step="30" [locale]="calendar.locale"
+		[monthviewEventDetailTemplate]="templateEvent"
+		[noEventsLabel]="'Sin actividad'" [lockSwipes]="lockSwipes">
   </calendar>
 </div>

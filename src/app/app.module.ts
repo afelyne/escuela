@@ -14,6 +14,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePageModule } from '../pages/home/home.module';
 import { ApiProvider } from '../providers/api/api';
+import { NotificationsPage } from '../pages/notifications/notifications';
 
 export function jwtOptionsFactory(storage) {
 	return {
@@ -26,7 +27,7 @@ export function jwtOptionsFactory(storage) {
 }
 
 @NgModule({
-	declarations: [MyApp, LoginPage],
+	declarations: [MyApp, LoginPage, NotificationsPage],
 	imports: [
 		BrowserModule,
 		IonicModule.forRoot(MyApp),
@@ -42,7 +43,7 @@ export function jwtOptionsFactory(storage) {
 		})
 	],
 	bootstrap: [IonicApp],
-	entryComponents: [MyApp, LoginPage],
+	entryComponents: [MyApp, LoginPage, NotificationsPage],
 	providers: [
 		StatusBar,
 		SplashScreen,
