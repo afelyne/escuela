@@ -1,7 +1,19 @@
 import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiProvider } from '../../providers/api/api';
-import { subMonths, addMonths, addHours, addMinutes, getMonth, getYear, format, addSeconds } from 'date-fns';
+import {
+	subMonths,
+	addMonths,
+	addHours,
+	addMinutes,
+	getMonth,
+	getYear,
+	format,
+	addSeconds,
+	setSeconds,
+	setMinutes,
+	setHours
+} from 'date-fns';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 
 /**
@@ -79,25 +91,36 @@ export class SonComponent implements OnInit, AfterViewInit {
 	buildCalendarData() {
 		this.eventSource = this.sonAssistency.filter((item) => {
 			return item.id_acceso !== 0;
-		});		
+		});
 
 		this.eventSource = this.eventSource.map((item) => {
-			var dateLog = addHours( new Date(item.fecha), 5 );
-			
+			var dateLog = addHours(new Date(item.fecha), 5);
+
 			let event = {};
 
-			let startHour = item.h_entrada.split(':');
-			let endHour = item.h_salida.split(':');
+			// if (item.festivo) {
+			// } else {
 			event['title'] = 'Asistencia';
+
+			let startHour = item.h_entrada.split(':');
 			event['startTime'] = addHours(
-				addMinutes(
-					addSeconds(dateLog, startHour[2] ), startHour[1]),
+				addMinutes(addSeconds(dateLog, startHour[2]), startHour[1]),
 				startHour[0]
 			);
-			event['endTime'] = addHours(addMinutes(  addSeconds(dateLog, endHour[2]), endHour[1] ), endHour[0]);
+
+			if (item.h_salida === '') {
+				event['endTime'] = setHours(setMinutes(setSeconds(dateLog, 58), 58), 23);
+			} else {
+				let endHour = item.h_salida.split(':');
+				event['endTime'] = addHours(
+					addMinutes(addSeconds(dateLog, endHour[2]), endHour[1]),
+					endHour[0]
+				);
+			}
+			// }
 
 			return event;
-		});		
+		});
 
 		this.myCalendar.loadEvents();
 	}
@@ -158,6 +181,6 @@ export class SonComponent implements OnInit, AfterViewInit {
 	}
 
 	displayData(data) {
-		console.log(data)
+		console.log(data);
 	}
 }

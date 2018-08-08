@@ -5,14 +5,14 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="primary">
-    <button ion-button menuToggle icon-only>
-      <ion-icon name='menu'></ion-icon>
-    </button>
-    <ion-title>
-      Registros
-    </ion-title>
-  </ion-navbar>
+	<ion-navbar color="primary">
+		<button ion-button menuToggle icon-only>
+			<ion-icon name='menu'></ion-icon>
+		</button>
+		<ion-title>
+			Registros
+		</ion-title>
+	</ion-navbar>
 
 </ion-header>
 
@@ -25,33 +25,33 @@
 			</ion-segment-button>
 		</ion-segment>
 	</div>
-		
-  <div *ngIf="selectedSon; else emptyMessage">
-    <ng-container *ngFor="let hijo of userData?.hijos; let i = index">
-      <ng-container *ngIf="selectedSon - 1 == i">
-        <son [sonData]="userData.hijos[selectedSon - 1]"></son>
-      </ng-container>
-    </ng-container>
-  </div>
 
-  <ng-template #emptyMessage>
-    <div class="message">
-      <!-- <h1>Selecciona un alumno</h1> -->
-			
-			<h2 *ngIf="userData?.notificaciones.length > 0">Notificaciones</h2>
+	<div *ngIf="selectedSon; else emptyMessage">
+		<ng-container *ngFor="let hijo of userData?.hijos; let i = index">
+			<ng-container *ngIf="selectedSon - 1 == i">
+				<son [sonData]="userData.hijos[selectedSon - 1]"></son>
+			</ng-container>
+		</ng-container>
+	</div>
+
+	<ng-template #emptyMessage>
+		<div class="message">
+			<!-- <h1>Selecciona un alumno</h1> -->
+
+			<h2 *ngIf="userData?.notificaciones?.length > 0">Notificaciones</h2>
 			<div class="notificaciones">
 				<ion-card *ngFor="let notification of userData?.notificaciones ">
 					<ion-card-header>
 						{{ notification.titulo}}
 					</ion-card-header>
 					<ion-card-content>
-						<small>{{ notification.fecha }} </small> <br>
-						{{ notification.aviso}}
+						<small>{{ notification.fecha }} </small>
+						<br> {{ notification.aviso}}
 					</ion-card-content>
 				</ion-card>
 				<!--  -->
 				<div *ngIf="userData?.notificaciones.length == 0">
-						<h3 margin-top text-center>Sin notificaciones</h3>
+					<h3 margin-top text-center>Sin notificaciones</h3>
 				</div>
 			</div>
 
@@ -59,5 +59,5 @@
 
 	</ng-template>
 
-		
+
 </ion-content>

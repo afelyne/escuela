@@ -14,24 +14,25 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePageModule } from '../pages/home/home.module';
 import { ApiProvider } from '../providers/api/api';
-import { NotificationsPage } from '../pages/notifications/notifications';
+import { NotificationsPageModule } from '../pages/notifications/notifications.module';
 
 export function jwtOptionsFactory(storage) {
 	return {
 		tokenGetter: () => {
 			return storage.get('access_token');
 		},
-		whitelistedDomains: ['localhost:8100', 'apic5.arceoconde.com'],
+		whitelistedDomains: ['localhost:8100', 'apic5.fdgautomation.com'],
 		authScheme: ''
 	};
 }
 
 @NgModule({
-	declarations: [MyApp, LoginPage, NotificationsPage],
+	declarations: [MyApp, LoginPage],
 	imports: [
 		BrowserModule,
 		IonicModule.forRoot(MyApp),
 		HomePageModule,
+		NotificationsPageModule,
 		HttpClientModule,
 		IonicStorageModule.forRoot(),
 		JwtModule.forRoot({
@@ -43,7 +44,7 @@ export function jwtOptionsFactory(storage) {
 		})
 	],
 	bootstrap: [IonicApp],
-	entryComponents: [MyApp, LoginPage, NotificationsPage],
+	entryComponents: [MyApp, LoginPage],
 	providers: [
 		StatusBar,
 		SplashScreen,

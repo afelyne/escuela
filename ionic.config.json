@@ -1,8 +1,7 @@
 {
-  "name": "escuela",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "ionic-angular",
-  "app_id": ""
+	"name": "FDG Acceso",
+	"integrations": {
+		"cordova": {}
+	},
+	"type": "ionic-angular"
 }

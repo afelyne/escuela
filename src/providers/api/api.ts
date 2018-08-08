@@ -9,9 +9,9 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class ApiProvider {
-  API_URL: string;
+	API_URL: string;
 
-  constructor(public http: HttpClient) {
-    this.API_URL = 'http://apic5.arceoconde.com/v1/';
-  }
+	constructor(public http: HttpClient) {
+		this.API_URL = 'http://apic5.fdgautomation.com/v1/';
+	}
 }

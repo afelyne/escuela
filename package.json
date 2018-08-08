@@ -1,15 +1,16 @@
 {
-	"name": "escuela",
+	"name": "FDG Acceso",
 	"version": "0.0.1",
-	"author": "daniel t",
-	"homepage": "http://ionicframework.com/",
+	"author": "daniel torres",
+	"homepage": "http://fdgmexico.com/",
 	"private": true,
 	"scripts": {
 		"clean": "ionic-app-scripts clean",
 		"build": "ionic-app-scripts build",
 		"lint": "ionic-app-scripts lint",
 		"ionic:build": "ionic-app-scripts build",
-		"ionic:serve": "ionic-app-scripts serve"
+		"ionic:serve": "ionic-app-scripts serve",
+		"superbuild": "ionic cordova build ios --prod --aot --minifyjs --minifycss --optimizejs --release --device"
 	},
 	"dependencies": {
 		"@angular/animations": "5.2.11",
@@ -27,6 +28,7 @@
 		"@ionic-native/status-bar": "4.7.0",
 		"@ionic/storage": "^2.1.3",
 		"cordova-android": "7.0.0",
+		"cordova-ios": "4.5.5",
 		"cordova-plugin-device": "^2.0.2",
 		"cordova-plugin-ionic-keyboard": "^2.1.2",
 		"cordova-plugin-ionic-webview": "^1.2.1",
@@ -46,7 +48,7 @@
 		"@ionic/app-scripts": "3.1.10",
 		"typescript": "~2.6.2"
 	},
-	"description": "An Ionic project",
+	"description": "Registro de accesos",
 	"cordova": {
 		"plugins": {
 			"cordova-sqlite-storage": {},
@@ -57,7 +59,8 @@
 			"cordova-plugin-ionic-keyboard": {}
 		},
 		"platforms": [
-			"android"
+			"android",
+			"ios"
 		]
 	}
 }
