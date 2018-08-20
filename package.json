@@ -1,5 +1,5 @@
 {
-	"name": "FDG Acceso",
+	"name": "fdgacceso",
 	"version": "0.0.1",
 	"author": "daniel torres",
 	"homepage": "http://fdgmexico.com/",
@@ -10,7 +10,7 @@
 		"lint": "ionic-app-scripts lint",
 		"ionic:build": "ionic-app-scripts build",
 		"ionic:serve": "ionic-app-scripts serve",
-		"superbuild": "ionic cordova build android --prod --aot --minifyjs --minifycss --optimizejs --release --device"
+		"superbuild": "ionic cordova build android --prod --aot --minifyjs --minifycss --optimizejs"
 	},
 	"dependencies": {
 		"@angular/animations": "5.2.11",
