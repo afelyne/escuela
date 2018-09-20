@@ -68,18 +68,31 @@ export class LoginPage implements OnInit {
 					usr: this.login.usr,
 					pword: this.login.pword
 				})
-				.subscribe((response) => {
-					if( response['valid']) {
-						this.storage.set('access_token', response['response']);
-						setTimeout(() => {
+				.subscribe(
+					(response) => {
+						if (response['valid']) {
+							this.storage.set('access_token', response['response']);
+							setTimeout(() => {
+								loading.dismiss();
+								this.navCtrl.setRoot(HomePage);
+							}, 1000);
+						} else {
+							this.showError = response['response'];
 							loading.dismiss();
-							this.navCtrl.setRoot(HomePage);
-						}, 1000)
-					} else {
-						this.showError = response['response'];
+						}
+					},
+					(err) => {
+						console.log(err);
+
 						loading.dismiss();
+						let alert = this.alertCtrl.create({
+							title: 'Error al acceder',
+							subTitle: 'Revisa tu conexión a internet e intentalo de nuevo',
+							buttons: ['OK']
+						});
+						alert.present();
 					}
-				});
+				);
 		}
 	}
 }
