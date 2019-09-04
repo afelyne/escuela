@@ -21,7 +21,13 @@ export function jwtOptionsFactory(storage) {
 		tokenGetter: () => {
 			return storage.get('access_token');
 		},
-		whitelistedDomains: ['localhost:8100', 'apic5.fdgautomation.com'],
+		whitelistedDomains: [
+			'localhost:8100',
+			'apic5.fdgautomation.com',
+			'apic5.dyndns.org',
+			'cetis5.dyndns.org',
+			'cetis33.dyndns.org'
+		],
 		authScheme: ''
 	};
 }

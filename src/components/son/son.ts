@@ -133,9 +133,7 @@ export class SonComponent implements OnInit, AfterViewInit {
 		let finalDate = format(addMonths(initialDate, 1), 'YYYY-MM-DD');
 		this.http
 			.get(
-				`${this.api.API_URL}alumno/asistencia/${
-					this.sonData.id_hijo
-				}?fini=${initialDate}&ffin=${finalDate}`
+				`${this.api.API_URL}alumno/asistencia/${this.sonData.id_hijo}?fini=${initialDate}&ffin=${finalDate}`
 			)
 			.subscribe((response) => {
 				this.sonAssistency = response;
@@ -154,9 +152,7 @@ export class SonComponent implements OnInit, AfterViewInit {
 		let finalDate = format(addMonths(initialDate, 1), 'YYYY-MM-DD');
 		this.http
 			.get(
-				`${this.api.API_URL}alumno/asistencia/${
-					this.sonData.id_hijo
-				}?fini=${initialDate}&ffin=${finalDate}`
+				`${this.api.API_URL}alumno/asistencia/${this.sonData.id_hijo}?fini=${initialDate}&ffin=${finalDate}`
 			)
 			.subscribe((response) => {
 				this.sonAssistency = response;
@@ -177,10 +173,10 @@ export class SonComponent implements OnInit, AfterViewInit {
 	onTimeSelected($event) {}
 
 	getCustomClass(events) {
-		console.log(events);
+		//console.log(events);
 	}
 
 	displayData(data) {
-		console.log(data);
+		//console.log(data);
 	}
 }

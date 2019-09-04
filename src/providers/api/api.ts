@@ -10,8 +10,10 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ApiProvider {
 	API_URL: string;
+	API_SELECTOR: string;
 
 	constructor(public http: HttpClient) {
 		this.API_URL = 'http://apic5.fdgautomation.com/v1/';
+		this.API_SELECTOR = 'https://arceoconde.com/fdg/apis';
 	}
 }

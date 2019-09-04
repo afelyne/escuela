@@ -1,37 +1,87 @@
 <ion-content padding>
-  <div class="contenedor" padding-top margin-top>
-    <ion-col class="centrado" padding-top>
-      <img src="assets/imgs/logoe.png" alt="">
+	<div class="contenedor" padding-top margin-top>
+		<ion-col class="centrado" padding-top>
+			<img src="assets/imgs/logoe.png" alt="" />
 
-      <form (ngSubmit)="onSubmit()" [formGroup]="signupForm" padding>
-        <ion-list>
+			<form (ngSubmit)="onSubmit()" [formGroup]="signupForm" padding>
+				<ion-list>
+					<ion-item>
+						<ion-label floating>Usuario</ion-label>
+						<ion-input
+							type="text"
+							[(ngModel)]="login.usr"
+							name="usr"
+							formControlName="usr"
+							autocapitalize="off"
+							autocorrect="off"
+						></ion-input>
+					</ion-item>
 
-          <ion-item>
-            <ion-label floating>Usuario</ion-label>
-            <ion-input type="text" [(ngModel)]="login.usr" name="usr" formControlName="usr" autocapitalize="off" autocorrect="off"></ion-input>
-          </ion-item>
+					<ion-item>
+						<ion-label floating>Password</ion-label>
+						<ion-input
+							type="password"
+							[(ngModel)]="login.pword"
+							name="pword"
+							formControlName="pword"
+							autocapitalize="off"
+							autocorrect="off"
+						></ion-input>
+					</ion-item>
 
-          <ion-item>
-            <ion-label floating>Password</ion-label>
-            <ion-input type="password" [(ngModel)]="login.pword" name="pword" formControlName="pword" autocapitalize="off" autocorrect="off"></ion-input>
-          </ion-item>
+					<ion-item
+						*ngIf="
+							signupForm.controls.usr.hasError('required') &&
+							signupForm.controls.usr.touched
+						"
+						class="error-message"
+					>
+						<p>El campo Usuario es requerido</p>
+					</ion-item>
+					<ion-item
+						*ngIf="
+							signupForm.controls.pword.hasError('required') &&
+							signupForm.controls.pword.touched
+						"
+						class="error-message"
+					>
+						<p>El campo Contraseña es requerido</p>
+					</ion-item>
+					<ion-item *ngIf="showError !== ''" class="error-message">
+						<p>{{ showError }}</p>
+					</ion-item>
+				</ion-list>
 
-          <ion-item *ngIf="signupForm.controls.usr.hasError('required') && signupForm.controls.usr.touched" class="error-message">
-            <p>El campo Usuario es requerido</p>
-          </ion-item>
-          <ion-item *ngIf="signupForm.controls.pword.hasError('required') && signupForm.controls.pword.touched" class="error-message">
-            <p>El campo Contraseña es requerido</p>
-          </ion-item>
-          <ion-item *ngIf="showError !== '' " class="error-message">
-            <p>{{ showError }}</p>
-          </ion-item>
-        </ion-list>
+				<ion-list>
+					<ion-item>
+						<ion-label>Selecciona tu Plantel</ion-label>
+						<ion-select
+							formControlName="api"
+							[(ngModel)]="login.api"
+							cancelText="Cerrar"
+							okText="Aceptar"
+						>
+							<ion-option *ngFor="let API of availableAPIS" [value]="API.url">
+								{{ API.nombre }}
+							</ion-option>
+						</ion-select>
+					</ion-item>
 
-        <div padding>
-          <button ion-button block>Sign In</button>
-        </div>
-      </form>
-    </ion-col>
-  </div>
+					<ion-item
+						*ngIf="
+							signupForm.controls.api.hasError('required') &&
+							signupForm.controls.api.touched
+						"
+						class="error-message"
+					>
+						<p>El campo Plantel es requerido</p>
+					</ion-item>
+				</ion-list>
 
+				<div padding>
+					<button ion-button block [disabled]="login.api === undefined">Sign In</button>
+				</div>
+			</form>
+		</ion-col>
+	</div>
 </ion-content>

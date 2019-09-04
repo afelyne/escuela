@@ -19,13 +19,15 @@ export class LoginPage implements OnInit {
 	signupForm: FormGroup;
 	token: string;
 	showError: any;
+	availableAPIS: any;
+	selectedAPI: String;
 
 	constructor(
 		public navCtrl: NavController,
 		public alertCtrl: AlertController,
 		public menuCtrl: MenuController,
 		private http: HttpClient,
-		private api: ApiProvider,
+		private apiProvider: ApiProvider,
 		private storage: Storage,
 		private formBuilder: FormBuilder,
 		private jwtHelper: JwtHelperService,
@@ -42,16 +44,32 @@ export class LoginPage implements OnInit {
 			this.validateToken();
 		});
 
+		this.http.get(this.apiProvider.API_SELECTOR + '?admin=chi').subscribe(
+			(response) => {
+				this.availableAPIS = response;
+			},
+			(err) => {
+				console.log(err);
+			}
+		);
+
 		this.signupForm = this.formBuilder.group({
 			usr: new FormControl('', Validators.compose([Validators.required])),
-			pword: new FormControl('', Validators.compose([Validators.required]))
+			pword: new FormControl('', Validators.compose([Validators.required])),
+			api: new FormControl(
+				'',
+				Validators.compose([Validators.required, Validators.minLength(1)])
+			)
 		});
 	}
 
 	validateToken() {
 		if (this.token !== null && this.token !== '') {
 			if (this.jwtHelper.isTokenExpired(this.token)) {
-				this.navCtrl.setRoot(HomePage);
+				this.storage.get('api_url').then((url) => {
+					this.apiProvider.API_URL = url;
+					this.navCtrl.setRoot(HomePage);
+				});
 			}
 		}
 	}
@@ -63,8 +81,9 @@ export class LoginPage implements OnInit {
 		loading.present();
 		if (this.signupForm.valid) {
 			this.showError = '';
+			this.apiProvider.API_URL = this.login.api;
 			this.http
-				.post(`${this.api.API_URL}user/login`, {
+				.post(`${this.apiProvider.API_URL}user/login`, {
 					usr: this.login.usr,
 					pword: this.login.pword
 				})
@@ -72,6 +91,7 @@ export class LoginPage implements OnInit {
 					(response) => {
 						if (response['valid']) {
 							this.storage.set('access_token', response['response']);
+							this.storage.set('api_url', this.apiProvider.API_URL);
 							setTimeout(() => {
 								loading.dismiss();
 								this.navCtrl.setRoot(HomePage);
