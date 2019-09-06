@@ -44,7 +44,7 @@ export class LoginPage implements OnInit {
 			this.validateToken();
 		});
 
-		this.http.get(this.apiProvider.API_SELECTOR + '?admin=chi').subscribe(
+		this.http.get(this.apiProvider.API_SELECTOR).subscribe(
 			(response) => {
 				this.availableAPIS = response;
 			},
