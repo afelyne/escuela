@@ -118,10 +118,10 @@ export class SonComponent implements OnInit, AfterViewInit {
 				);
 			}
 			// }
-
 			return event;
 		});
 
+		console.log(this.eventSource);
 		this.myCalendar.loadEvents();
 	}
 
@@ -173,10 +173,10 @@ export class SonComponent implements OnInit, AfterViewInit {
 	onTimeSelected($event) {}
 
 	getCustomClass(events) {
-		//console.log(events);
+		// console.log(events);
 	}
 
 	displayData(data) {
-		//console.log(data);
+		// console.log(data);
 	}
 }
